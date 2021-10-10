@@ -1,4 +1,4 @@
-package com.example.noteappcleanarchitecture.feature_note.presentation.util
+package com.example.noteappcleanarchitecture.feature_note.presentation.add_edit_note
 
 data class NoteTextFieldState(
     val text: String = "",

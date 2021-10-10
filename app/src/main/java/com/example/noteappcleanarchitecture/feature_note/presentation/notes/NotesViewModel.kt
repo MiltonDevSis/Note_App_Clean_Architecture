@@ -1,4 +1,4 @@
-package com.example.noteappcleanarchitecture.feature_note.presentation
+package com.example.noteappcleanarchitecture.feature_note.presentation.notes
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

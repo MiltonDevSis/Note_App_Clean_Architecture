@@ -16,14 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.noteappcleanarchitecture.feature_note.presentation.NotesViewModel
 import com.example.noteappcleanarchitecture.feature_note.presentation.notes.components.NoteItem
 import com.example.noteappcleanarchitecture.feature_note.presentation.notes.components.OrderSection
+import com.example.noteappcleanarchitecture.feature_note.presentation.util.Screen
 import kotlinx.coroutines.launch
 
 @ExperimentalAnimationApi
 @Composable
-fun noteScreen(
+fun NotesScreen(
     navController: NavController,
     viewModel: NotesViewModel = hiltViewModel()
 ) {
@@ -35,7 +35,7 @@ fun noteScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-
+                    navController.navigate(Screen.AddEditNotesScreen.route)
                 },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
@@ -92,7 +92,8 @@ fun noteScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-
+                                Screen.AddEditNotesScreen.route +
+                                    "?noteId=${note.id}&noteColor=${note.color}"
                             },
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
