@@ -35,13 +35,12 @@ fun AddEditNoteScreen(
     noteColor: Int,
     viewModel: AddEditNoteViewModel = hiltViewModel()
 ) {
-
     val titleState = viewModel.noteTitle.value
     val contentState = viewModel.noteContent.value
 
     val scaffoldState = rememberScaffoldState()
 
-    val noteBackgroundanimatable = remember {
+    val noteBackgroundAnimatable = remember {
         Animatable(
             Color(if (noteColor != -1) noteColor else viewModel.noteColor.value)
         )
@@ -49,9 +48,9 @@ fun AddEditNoteScreen(
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = true) {
-        viewModel.evenFlow.collectLatest { event ->
-            when (event) {
-                is AddEditNoteViewModel.UiEvent.ShowSnackBar -> {
+        viewModel.eventFlow.collectLatest { event ->
+            when(event) {
+                is AddEditNoteViewModel.UiEvent.ShowSnackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.message
                     )
@@ -67,13 +66,11 @@ fun AddEditNoteScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-
+                    viewModel.onEvent(AddEditNoteEvent.SaveNote)
                 },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
-                Icon(
-                    imageVector = Icons.Default.Save, contentDescription = "Save note"
-                )
+                Icon(imageVector = Icons.Default.Save, contentDescription = "Save note")
             }
         },
         scaffoldState = scaffoldState
@@ -81,7 +78,7 @@ fun AddEditNoteScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(noteBackgroundanimatable.value)
+                .background(noteBackgroundAnimatable.value)
                 .padding(16.dp)
         ) {
             Row(
@@ -107,7 +104,7 @@ fun AddEditNoteScreen(
                             )
                             .clickable {
                                 scope.launch {
-                                    noteBackgroundanimatable.animateTo(
+                                    noteBackgroundAnimatable.animateTo(
                                         targetValue = Color(colorInt),
                                         animationSpec = tween(
                                             durationMillis = 500
@@ -129,7 +126,7 @@ fun AddEditNoteScreen(
                 onFocusChange = {
                     viewModel.onEvent(AddEditNoteEvent.ChangeTitleFocus(it))
                 },
-                isHintVisible = titleState.ishintVisible,
+                isHintVisible = titleState.isHintVisible,
                 singleLine = true,
                 textStyle = MaterialTheme.typography.h5
             )
@@ -143,7 +140,7 @@ fun AddEditNoteScreen(
                 onFocusChange = {
                     viewModel.onEvent(AddEditNoteEvent.ChangeContentFocus(it))
                 },
-                isHintVisible = contentState.ishintVisible,
+                isHintVisible = contentState.isHintVisible,
                 textStyle = MaterialTheme.typography.body1,
                 modifier = Modifier.fillMaxHeight()
             )

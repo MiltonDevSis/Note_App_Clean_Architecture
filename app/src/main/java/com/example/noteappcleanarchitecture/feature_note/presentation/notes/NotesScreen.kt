@@ -35,7 +35,7 @@ fun NotesScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate(Screen.AddEditNotesScreen.route)
+                    navController.navigate(Screen.AddEditNoteScreen.route)
                 },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
@@ -92,8 +92,10 @@ fun NotesScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                Screen.AddEditNotesScreen.route +
-                                    "?noteId=${note.id}&noteColor=${note.color}"
+                                navController.navigate(
+                                    Screen.AddEditNoteScreen.route +
+                                            "?noteId=${note.id}&noteColor=${note.color}"
+                                )
                             },
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
@@ -102,7 +104,7 @@ fun NotesScreen(
                                     message = "Note deleted",
                                     actionLabel = "Undo"
                                 )
-                                if (result == SnackbarResult.ActionPerformed) {
+                                if(result == SnackbarResult.ActionPerformed) {
                                     viewModel.onEvent(NotesEvent.RestoreNote)
                                 }
                             }

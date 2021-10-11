@@ -17,14 +17,13 @@ import com.example.noteappcleanarchitecture.feature_note.presentation.util.Scree
 import com.example.noteappcleanarchitecture.ui.theme.NoteAppCleanArchitectureTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-@ExperimentalAnimationApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NoteAppCleanArchitectureTheme {
+            NoteAppCleanArchitectureTheme() {
                 Surface(
                     color = MaterialTheme.colors.background
                 ) {
@@ -37,7 +36,7 @@ class MainActivity : ComponentActivity() {
                             NotesScreen(navController = navController)
                         }
                         composable(
-                            route = Screen.AddEditNotesScreen.route +
+                            route = Screen.AddEditNoteScreen.route +
                                     "?noteId={noteId}&noteColor={noteColor}",
                             arguments = listOf(
                                 navArgument(

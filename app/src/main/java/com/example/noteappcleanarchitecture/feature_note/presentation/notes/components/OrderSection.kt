@@ -15,7 +15,7 @@ fun OrderSection(
     onOrderChange: (NoteOrder) -> Unit
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()

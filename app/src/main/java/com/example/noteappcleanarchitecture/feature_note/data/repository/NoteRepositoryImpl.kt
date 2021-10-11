@@ -10,7 +10,7 @@ class NoteRepositoryImpl(
 ): NoteRepository {
 
     override fun getNotes(): Flow<List<Note>> {
-        return dao.getAllNotes()
+        return dao.getNotes()
     }
 
     override suspend fun getNoteById(id: Int): Note? {

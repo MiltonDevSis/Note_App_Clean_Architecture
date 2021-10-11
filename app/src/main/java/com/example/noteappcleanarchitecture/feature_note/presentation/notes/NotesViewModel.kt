@@ -8,16 +8,15 @@ import com.example.noteappcleanarchitecture.feature_note.domain.model.Note
 import com.example.noteappcleanarchitecture.feature_note.domain.use_case.NoteUseCases
 import com.example.noteappcleanarchitecture.feature_note.domain.util.NoteOrder
 import com.example.noteappcleanarchitecture.feature_note.domain.util.OrderType
-import com.example.noteappcleanarchitecture.feature_note.presentation.notes.NotesEvent
-import com.example.noteappcleanarchitecture.feature_note.presentation.notes.NotesState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class NotesViewModel
-@Inject constructor(
+@HiltViewModel
+class NotesViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases
 ) : ViewModel() {
 
@@ -36,7 +35,8 @@ class NotesViewModel
         when (event) {
             is NotesEvent.Order -> {
                 if (state.value.noteOrder::class == event.noteOrder::class &&
-                        state.value.noteOrder.orderType == event.noteOrder.orderType){
+                    state.value.noteOrder.orderType == event.noteOrder.orderType
+                ) {
                     return
                 }
                 getNotes(event.noteOrder)

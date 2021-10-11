@@ -27,7 +27,7 @@ import com.example.noteappcleanarchitecture.feature_note.domain.model.Note
 fun NoteItem(
     note: Note,
     modifier: Modifier = Modifier,
-    cornerRadios: Dp = 10.dp,
+    cornerRadius: Dp = 10.dp,
     cutCornerSize: Dp = 30.dp,
     onDeleteClick: () -> Unit
 ) {
@@ -47,7 +47,7 @@ fun NoteItem(
                 drawRoundRect(
                     color = Color(note.color),
                     size = size,
-                    cornerRadius = CornerRadius(cornerRadios.toPx())
+                    cornerRadius = CornerRadius(cornerRadius.toPx())
                 )
                 drawRoundRect(
                     color = Color(
@@ -55,13 +55,13 @@ fun NoteItem(
                     ),
                     topLeft = Offset(size.width - cutCornerSize.toPx(), -100f),
                     size = Size(cutCornerSize.toPx() + 100f, cutCornerSize.toPx() + 100f),
-                    cornerRadius = CornerRadius(cornerRadios.toPx())
+                    cornerRadius = CornerRadius(cornerRadius.toPx())
                 )
             }
         }
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(16.dp)
                 .padding(end = 32.dp)
         ) {
@@ -87,7 +87,8 @@ fun NoteItem(
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,
-                contentDescription = "Delete note"
+                contentDescription = "Delete note",
+                tint = MaterialTheme.colors.onSurface
             )
         }
     }
